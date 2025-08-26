@@ -1,0 +1,130 @@
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 20px currentColor;
+  }
+  100% {
+    box-shadow: 0 0 5px currentColor;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Utility Classes */
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.glow {
+  animation: glow 2s infinite;
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100% !important;
+    margin-bottom: 20px;
+  }
+  
+  .main-content {
+    flex-direction: column;
+  }
+  
+  .card {
+    width: 100% !important;
+  }
+}
+
+/* Theme-specific utility classes */
+.theme-neon-blue {
+  --primary: #00DBDE;
+  --secondary: #FC00FF;
+  --accent: #00DBDE;
+}
+
+.theme-neon-purple {
+  --primary: #8A2BE2;
+  --secondary: #FF00FF;
+  --accent: #8A2BE2;
+}
+
+.theme-neon-green {
+  --primary: #00FF00;
+  --secondary: #39FF14;
+  --accent: #00FF00;
+}
+
+.theme-neon-red {
+  --primary: #FF073A;
+  --secondary: #FF3131;
+  --accent: #FF073A;
+}
+
+.theme-cyberpunk {
+  --primary: #FF0099;
+  --secondary: #F0F;
+  --accent: #FF0099;
+}

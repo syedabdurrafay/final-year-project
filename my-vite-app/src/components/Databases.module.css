@@ -1,0 +1,673 @@
+/* Cyberpunk 2099 Theme - Advanced Redesign */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.databases {
+  min-height: 100vh;
+  color: #ffffff;
+  background: linear-gradient(135deg, #000000 0%, #0a0a20 40%, #0d0d2a 100%);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Exo 2', 'Orbitron', 'Rajdhani', sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+}
+
+/* Advanced Holographic Grid Background */
+.holographicGrid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(16, 20, 48, 0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 20, 48, 0.7) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: 0;
+  perspective: 1000px;
+  animation: gridMove 15s infinite linear;
+  transform-style: preserve-3d;
+  transform: rotateX(75deg);
+}
+
+@keyframes gridMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+/* Neon Particles Background */
+.neonParticles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #00DBDE, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 40px 70px, #FC00FF, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 60px 100px, #00FF00, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 80px 130px, #FF0099, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 100px 160px, #8A2BE2, rgba(0, 0, 0, 0));
+  background-size: 250px 250px;
+  animation: particlesMove 20s infinite linear;
+}
+
+@keyframes particlesMove {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 250px 250px;
+  }
+}
+
+/* Data Stream Animation */
+.dataStream {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(transparent 70%, rgba(0, 219, 222, 0.1) 90%, transparent 95%);
+  animation: dataStream 8s infinite linear;
+  opacity: 0.5;
+}
+
+@keyframes dataStream {
+  0% {
+    background-position: 0 100%;
+  }
+  100% {
+    background-position: 0 -100%;
+  }
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  gap: 20px;
+}
+
+/* Main Content Area */
+.mainContent {
+  flex: 1;
+  background: rgba(5, 10, 25, 0.8);
+  padding: 35px 40px;
+  backdrop-filter: blur(15px);
+  border: none;
+  position: relative;
+  overflow: auto;
+  height: 100vh;
+  margin-left: 290px;
+  transition: margin-left 0.3s ease;
+}
+
+.mainContent.sidebarCollapsed {
+  margin-left: 120px;
+}
+
+.mainContent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 217, 222, 0.6), 
+    transparent);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 45px;
+  position: relative;
+}
+
+.titleContainer {
+  position: relative;
+}
+
+.title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  margin: 0 0 5px 0;
+  background: linear-gradient(90deg, #ffffff, #00DBDE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 219, 222, 0.5);
+}
+
+.titleSub {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 15px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.titleUnderline {
+  height: 3px;
+  width: 120px;
+  background: linear-gradient(90deg, #00DBDE, #FC00FF);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(0, 219, 222, 0.5);
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 25px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background: rgba(0, 219, 222, 0.15);
+  border: 1px solid rgba(0, 219, 222, 0.5);
+  transition: all 0.3s ease;
+  font-family: 'Exo 2', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.addButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(0, 219, 222, 0.5);
+  background: rgba(0, 219, 222, 0.25);
+}
+
+.addButtonIcon {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.addButtonGlow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  border-radius: 10px;
+}
+
+.addButton:hover .addButtonGlow {
+  opacity: 0.4;
+}
+
+/* Cards Container */
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+  justify-content: flex-start;
+  margin-bottom: 60px;
+}
+
+/* Database Cards */
+.card {
+  background: rgba(20, 25, 45, 0.7);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 120, 255, 0.2);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Exo 2', sans-serif;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 217, 222, 0.6), 
+    transparent);
+}
+
+.cardGlow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(0, 219, 222, 0.1), rgba(252, 0, 255, 0.1));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 
+              0 0 40px rgba(0, 219, 222, 0.4);
+}
+
+.card:hover .cardGlow {
+  opacity: 1;
+}
+
+.cardHovered {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 
+              0 0 40px rgba(0, 219, 222, 0.4);
+}
+
+.cardHovered .cardGlow {
+  opacity: 1;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.cardHeader h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ffffff, #00DBDE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Exo 2', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.dbType {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dbIcon {
+  color: #00DBDE;
+}
+
+.cardContent {
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.dataRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.dataLabel {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+}
+
+.dataValue {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.dataDescription {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  border-left: 3px solid #00DBDE;
+  font-weight: 300;
+}
+
+.cardStats {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 15px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.stat {
+  text-align: center;
+  flex: 1;
+}
+
+.statValue {
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00DBDE, #FC00FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.statLabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+.connectButton {
+  position: relative;
+  margin-top: 10px;
+  padding: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  background: rgba(0, 219, 222, 0.2);
+  border: 1px solid rgba(0, 219, 222, 0.5);
+  font-weight: 600;
+  font-size: 15px;
+  font-family: 'Exo 2', sans-serif;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+
+.connectButton:hover:not(:disabled) {
+  background: rgba(0, 219, 222, 0.3);
+  box-shadow: 0 0 25px rgba(0, 219, 222, 0.5);
+  transform: translateY(-2px);
+}
+
+.connectButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.connectText {
+  position: relative;
+  z-index: 2;
+}
+
+.connectProgress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00DBDE, #FC00FF);
+  width: 0%;
+  transition: width 1.5s ease;
+}
+
+.connecting .connectProgress {
+  width: 100%;
+}
+
+/* Database Ecosystem */
+.ecosystem {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ecosystemTitle {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ffffff, #00DBDE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.ecosystemSubtitle {
+  text-align: center;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 30px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.iconsContainer {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.iconItem {
+  text-align: center;
+  position: relative;
+  padding: 25px 20px;
+  border-radius: 16px;
+  background: rgba(20, 25, 45, 0.7);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(100, 120, 255, 0.2);
+  width: 180px;
+  backdrop-filter: blur(10px);
+}
+
+.iconItem:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 
+              0 0 30px rgba(0, 219, 222, 0.3);
+}
+
+.iconWrapper {
+  position: relative;
+  margin-bottom: 15px;
+  display: inline-block;
+  height: 80px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dbIconLarge {
+  position: relative;
+  z-index: 2;
+  color: #00DBDE;
+  font-size: 60px;
+}
+
+.iconHalo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(0, 219, 222, 0.2);
+  z-index: 1;
+  animation: haloPulse 3s infinite ease-in-out;
+}
+
+.iconParticles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, transparent 20%),
+              radial-gradient(circle at 70% 70%, rgba(252, 0, 255, 0.6) 0%, transparent 20%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.iconItem:hover .iconParticles {
+  opacity: 0.6;
+}
+
+@keyframes haloPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+.iconItem p {
+  margin: 10px 0;
+  font-weight: 600;
+  font-size: 18px;
+  font-family: 'Exo 2', sans-serif;
+}
+
+.compatibility {
+  margin-top: 10px;
+}
+
+.compatibilityText {
+  font-size: 12px;
+  color: rgba(0, 219, 222, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 5px 10px;
+  border-radius: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .container {
+    flex-direction: column;
+  }
+  
+  .mainContent {
+    margin-left: 0 !important;
+    margin-top: 80px;
+  }
+  
+  .cardsContainer {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 968px) {
+  .cardsContainer {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  .iconsContainer {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 25px;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .titleUnderline {
+    margin: 0 auto;
+  }
+  
+  .iconsContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .iconItem {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .mainContent {
+    padding: 25px 20px;
+  }
+  
+  .title {
+    font-size: 28px;
+  }
+  
+  .ecosystemTitle {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 20px;
+  }
+  
+  .cardHeader {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .dbType {
+    align-self: flex-start;
+  }
+  
+  .cardStats {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .stat {
+    flex: 0 0 calc(50% - 15px);
+  }
+}

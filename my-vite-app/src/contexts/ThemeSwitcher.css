@@ -1,0 +1,60 @@
+.theme-switcher {
+  position: relative;
+}
+
+.theme-switcher-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.theme-switcher-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: rgba(15, 15, 20, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 150px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: all 0.2s ease;
+}
+
+.theme-option.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-option:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-color-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.theme-label {
+  color: white;
+  font-size: 0.9rem;
+}

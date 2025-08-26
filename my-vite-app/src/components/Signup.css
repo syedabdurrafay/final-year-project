@@ -1,0 +1,498 @@
+/* Signup.css - 2099 Cyberpunk Theme - Isolated Styles */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+
+/* Unique namespace for all signup styles */
+.ci-signup-container * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.ci-signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  position: relative;
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.ci-holographic-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(90deg, rgba(31, 36, 74, 0.8) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(64, 23, 117, 0.7) 0%, transparent 70%);
+  opacity: 0.7;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ci-particles-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ci-particles-background::before {
+  content: "";
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
+  background: 
+    radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 50px 50px, 100px 100px, 150px 150px;
+  animation: ci-particlesMove 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes ci-particlesMove {
+  from { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+}
+
+.ci-signup-card {
+  background: rgba(13, 17, 28, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 
+    0 0 0 1px rgba(92, 108, 244, 0.3),
+    0 0 40px rgba(92, 108, 244, 0.2),
+    0 0 120px rgba(92, 108, 244, 0.1);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(92, 108, 244, 0.5);
+  overflow: hidden;
+}
+
+.ci-signup-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent, 
+    rgba(92, 108, 244, 0.1), 
+    rgba(123, 74, 203, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: ci-shine 6s infinite linear;
+  z-index: -1;
+}
+
+@keyframes ci-shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.ci-cyber-glitch {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+}
+
+.ci-cyber-glitch::before,
+.ci-cyber-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ci-cyber-glitch::before {
+  animation: ci-glitch-effect 3s infinite linear alternate-reverse;
+  left: 2px;
+  text-shadow: -2px 0 #00fffc;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  opacity: 0.8;
+}
+
+.ci-cyber-glitch::after {
+  animation: ci-glitch-effect 2s infinite linear alternate-reverse;
+  left: -2px;
+  text-shadow: 2px 0 #ff00ff;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+  opacity: 0.8;
+}
+
+@keyframes ci-glitch-effect {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.ci-biometric-prompt {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ci-retina-scanner {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #5c6cfc, transparent);
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.ci-retina-scanner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  animation: ci-scan 2s infinite linear;
+}
+
+@keyframes ci-scan {
+ 0% { left: -100%; }
+ 100% { left: 100%; }
+}
+
+.ci-biometric-prompt p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 1px;
+}
+
+.ci-signup-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
+}
+
+.ci-title-glow {
+  text-shadow: 0 0 10px rgba(92, 108, 244, 0.7);
+}
+
+.ci-signup-subtitle {
+  font-size: 14px;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+.ci-input-hologram {
+  margin-bottom: 25px;
+  text-align: left;
+  position: relative;
+}
+
+.ci-input-label {
+  display: block;
+  position: relative;
+}
+
+.ci-label-text {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ci-signup-input {
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(92, 108, 244, 0.3);
+  font-size: 14px;
+  transition: all 0.3s ease;
+  outline: none;
+  background: rgba(13, 17, 28, 0.6);
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 1px;
+}
+
+.ci-signup-input:focus {
+  border-color: #5c6cfc;
+  box-shadow: 0 0 15px rgba(92, 108, 244, 0.5);
+}
+
+.ci-signup-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.ci-input-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #5c6cfc, transparent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.ci-input-label.ci-focused .ci-input-underline {
+  transform: scaleX(1);
+}
+
+.ci-signup-options {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.ci-cyber-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.ci-actual-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ci-cyber-check {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.ci-cyber-check::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(92, 108, 244, 0.5);
+  border-radius: 4px;
+  margin-right: 8px;
+  background: rgba(13, 17, 28, 0.6);
+  transition: all 0.3s ease;
+}
+
+.ci-actual-checkbox:checked + .ci-cyber-check::before {
+  background: #5c6cfc;
+  border-color: #5c6cfc;
+  box-shadow: 0 0 10px rgba(92, 108, 244, 0.7);
+}
+
+.ci-actual-checkbox:checked + .ci-cyber-check::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 7px;
+  width: 6px;
+  height: 3px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.ci-holographic-link {
+  color: #5c6cfc;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.ci-holographic-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, #5c6cfc, transparent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.ci-holographic-link:hover {
+  text-shadow: 0 0 8px rgba(92, 108, 244, 0.7);
+}
+
+.ci-holographic-link:hover::after {
+  transform: scaleX(1);
+}
+
+.ci-neural-signup-button {
+  position: relative;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #5c6cfc, #7b4acb);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: 'Orbitron', sans-serif;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.ci-neural-signup-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 20px rgba(92, 108, 244, 0.3),
+    0 0 20px rgba(92, 108, 244, 0.4);
+}
+
+.ci-neural-signup-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ci-button-shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  animation: ci-buttonShine 3s infinite linear;
+  z-index: -1;
+}
+
+@keyframes ci-buttonShine {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.ci-button-hover-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.ci-neural-signup-button:hover .ci-button-hover-effect {
+  opacity: 1;
+}
+
+.ci-login-prompt {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 20px;
+}
+
+.ci-cyber-console {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.ci-console-text {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+  font-family: 'Orbitron', sans-serif;
+  margin-right: 15px;
+}
+
+.ci-console-lights {
+  display: flex;
+}
+
+.ci-light {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 0 3px;
+  background: #5c6cfc;
+  box-shadow: 0 0 5px #5c6cfc;
+}
+
+.ci-light.ci-pulsating {
+  animation: ci-pulse 1.5s infinite alternate;
+}
+
+@keyframes ci-pulse {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .ci-signup-card {
+    padding: 30px 20px;
+    margin: 0 15px;
+  }
+  
+  .ci-cyber-glitch {
+    font-size: 24px;
+  }
+  
+  .ci-signup-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}
