@@ -5,6 +5,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Dashboard from './components/Dashboard'
 import Databases from './components/Databases'
+import AddConnection from './components/AddConnection' // Add this import
 import { ThemeProvider } from './contexts/ThemeContext'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import './App.css'
@@ -36,6 +37,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Layout><Databases /></Layout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/add-connection" 
+            element={
+              <ProtectedRoute>
+                <Layout><AddConnection /></Layout>
               </ProtectedRoute>
             } 
           />

@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+// src/contexts/AuthContext.jsx
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authAPI } from '../services/api';
 
 const AuthContext = createContext();
@@ -14,19 +15,11 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      verifyToken();
-    } else {
-      setLoading(false);
-    }
-  }, []);
+  const clearError = () => setError('');
 
-  const verifyToken = async () => {
+  const verifyToken = useCallback(async () => {
     try {
       const response = await authAPI.verifyToken();
-      // Defensive: ensure response and data exist
       if (response && response.data) {
         setUser(response.data);
       } else {
@@ -39,34 +32,39 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      verifyToken();
+    } else {
+      setLoading(false);
+    }
+  }, [verifyToken]);
 
   const login = async (emailOrUsername, password) => {
     try {
       setError('');
       const response = await authAPI.login(emailOrUsername, password);
 
-      // Defensive checks
       const token = response?.data?.access_token;
-      if (!token) throw new Error('No access token received');
+      if (!token) throw new Error('No access token received from server');
 
       localStorage.setItem('access_token', token);
 
-      // Fetch current user using token
+      // fetch user info
       const userResponse = await authAPI.verifyToken();
       if (userResponse && userResponse.data) setUser(userResponse.data);
 
       return { success: true };
     } catch (err) {
       console.error('Login error:', err);
-
-      // Extract message safely from axios error shape
       const message =
         err?.response?.data?.detail ??
         err?.response?.data?.message ??
         err?.message ??
         'Login failed';
-
       setError(message);
       return { success: false, error: message };
     }
@@ -77,7 +75,7 @@ export const AuthProvider = ({ children }) => {
       setError('');
       await authAPI.register(userData);
 
-      // Auto-login after successful registration
+      // Auto-login after registration
       const loginResult = await login(userData.email, userData.password);
       return loginResult;
     } catch (err) {
@@ -98,8 +96,6 @@ export const AuthProvider = ({ children }) => {
     setError('');
   };
 
-  const clearError = () => setError('');
-
   const value = {
     user,
     loading,
@@ -111,6 +107,5 @@ export const AuthProvider = ({ children }) => {
     clearError,
   };
 
-  // Only render children when loading finished to avoid undefined user usage
   return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
 };

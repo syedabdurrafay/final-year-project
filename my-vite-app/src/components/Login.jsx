@@ -1,3 +1,4 @@
+// src/pages/Login.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -27,7 +28,10 @@ const Login = () => {
     setIsLoading(true);
 
     const result = await login(credentials.email, credentials.password);
-    if (result.success) navigate('/database');
+    if (result.success) {
+      alert('✅ Login successful! Redirecting to dashboard...');
+      navigate('/databases'); // ✅ FIXED (plural)
+    }
 
     setIsLoading(false);
   };
@@ -39,22 +43,23 @@ const Login = () => {
     }
     try {
       await authAPI.forgotPassword(credentials.email);
-      alert('Password reset instructions have been sent to your email');
-    } catch (error) {
+      alert('Password reset instructions have been sent to your email (if it exists)');
+    } catch (err) {
+      console.error('Forgot password error:', err);
       setError('Failed to send reset instructions');
     }
   };
 
   return (
     <div className="ci-login-container">
-      <div className="ci-holographic-effect"></div>
-      <div className="ci-particles-background"></div>
+      <div className="ci-holographic-effect" />
+      <div className="ci-particles-background" />
 
       <div className="ci-login-card">
         <div className="ci-cyber-glitch" data-text="ChatInsight">ChatInsight</div>
 
         <div className="ci-biometric-prompt">
-          <div className="ci-retina-scanner"></div>
+          <div className="ci-retina-scanner" />
           <p>Retina scan available</p>
         </div>
 
@@ -86,7 +91,7 @@ const Login = () => {
                 required
                 disabled={isLoading}
               />
-              <div className="ci-input-underline"></div>
+              <div className="ci-input-underline" />
             </label>
           </div>
 
@@ -105,7 +110,7 @@ const Login = () => {
                 required
                 disabled={isLoading}
               />
-              <div className="ci-input-underline"></div>
+              <div className="ci-input-underline" />
             </label>
           </div>
 
@@ -123,22 +128,34 @@ const Login = () => {
                 <span>Remember me</span>
               </label>
             </div>
-            <button type="button" className="ci-holographic-link" onClick={handleForgotPassword} disabled={isLoading}>
+            <button
+              type="button"
+              className="ci-holographic-link"
+              onClick={handleForgotPassword}
+              disabled={isLoading}
+            >
               Forgot credentials?
             </button>
           </div>
 
           <button type="submit" className="ci-neural-login-button" disabled={isLoading}>
-            {isLoading ? <div className="ci-loading-spinner"></div> : (<>
-              <span className="ci-button-text">Neural Login</span>
-              <div className="ci-button-shine"></div>
-              <div className="ci-button-hover-effect"></div>
-            </>)}
+            {isLoading ? (
+              <div className="ci-loading-spinner" />
+            ) : (
+              <>
+                <span className="ci-button-text">Neural Login</span>
+                <div className="ci-button-shine" />
+                <div className="ci-button-hover-effect" />
+              </>
+            )}
           </button>
         </form>
 
         <p className="ci-signup-prompt">
-          New to the network? <Link to="/signup" className="ci-holographic-link">Request access</Link>
+          New to the network?{' '}
+          <Link to="/signup" className="ci-holographic-link">
+            Request access
+          </Link>
         </p>
       </div>
 
@@ -147,9 +164,9 @@ const Login = () => {
           {isLoading ? 'Authenticating...' : 'System secure. Firewall active. Ready for authentication.'}
         </div>
         <div className="ci-console-lights">
-          <div className="ci-light ci-pulsating"></div>
-          <div className="ci-light"></div>
-          <div className="ci-light"></div>
+          <div className="ci-light ci-pulsating" />
+          <div className="ci-light" />
+          <div className="ci-light" />
         </div>
       </div>
     </div>

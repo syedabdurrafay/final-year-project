@@ -1,3 +1,4 @@
+// src/services/api.js
 import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
@@ -12,7 +13,7 @@ api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('access_token');
     if (token) {
-      // Use bracket notation to guarantee header is set correctly
+      config.headers = config.headers || {};
       config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
@@ -26,7 +27,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('access_token');
-      // redirect to login page
+      // redirect to login page (spa)
       window.location.href = '/login';
     }
     return Promise.reject(error);
@@ -35,13 +36,13 @@ api.interceptors.response.use(
 
 export const authAPI = {
   login: async (emailOrUsername, password) => {
-    const formData = new URLSearchParams();
-    formData.append('username', emailOrUsername);
-    formData.append('password', password);
+    const formParams = new URLSearchParams();
+    formParams.append('username', emailOrUsername);
+    formParams.append('password', password);
 
     try {
-      // Use the created api instance (keeps baseURL consistent)
-      const response = await api.post('/api/auth/login', formData.toString(), {
+      // Use the axios instance; axios knows how to send URLSearchParams correctly
+      const response = await api.post('/api/auth/login', formParams, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       });
       return response;

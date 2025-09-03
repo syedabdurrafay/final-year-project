@@ -1,0 +1,400 @@
+.addConnection {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.holographicGrid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 219, 222, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 219, 222, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 1;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(20px) translateX(20px);
+  }
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebarCollapsed {
+  margin-left: 80px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(90deg, #00DBDE, #FC00FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(0, 219, 222, 0.5);
+}
+
+.titleSub {
+  font-size: 1.1rem;
+  color: #a0a0c0;
+  margin-top: 0.5rem;
+}
+
+.titleUnderline {
+  height: 3px;
+  width: 100px;
+  background: linear-gradient(90deg, #00DBDE, #FC00FF);
+  margin-top: 0.5rem;
+  border-radius: 2px;
+}
+
+.formContainer {
+  background: rgba(30, 30, 50, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.formSection {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.formSection:last-child {
+  border-bottom: none;
+}
+
+.formSection h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: #00DBDE;
+  font-weight: 600;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputGroup label {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #a0a0c0;
+  font-weight: 500;
+}
+
+.inputGroup input,
+.inputGroup select {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(20, 20, 35, 0.8);
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus {
+  outline: none;
+  border-color: #00DBDE;
+  box-shadow: 0 0 0 2px rgba(0, 219, 222, 0.2);
+}
+
+.inputGroup input::placeholder {
+  color: #666687;
+}
+
+.testResult {
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+}
+
+.testResult.success {
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  color: #00ff00;
+}
+
+.testResult.error {
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  color: #ff3333;
+}
+
+.testIcon {
+  font-size: 1.2rem;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.testButton,
+.saveButton,
+.cancelButton {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.testButton {
+  background: linear-gradient(90deg, #4cc9f0, #4895ef);
+  color: white;
+}
+
+.testButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(76, 201, 240, 0.4);
+}
+
+.saveButton {
+  background: linear-gradient(90deg, #00DBDE, #FC00FF);
+  color: white;
+}
+
+.saveButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(0, 219, 222, 0.4), 0 5px 20px rgba(252, 0, 255, 0.4);
+}
+
+.cancelButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: #a0a0c0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cancelButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.testButton:disabled,
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Theme variations */
+:global(.theme-neon-purple) .title {
+  background: linear-gradient(90deg, #8A2BE2, #FF00FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+}
+
+:global(.theme-neon-purple) .titleUnderline {
+  background: linear-gradient(90deg, #8A2BE2, #FF00FF);
+}
+
+:global(.theme-neon-purple) .formSection h3 {
+  color: #8A2BE2;
+}
+
+:global(.theme-neon-purple) .inputGroup input:focus,
+:global(.theme-neon-purple) .inputGroup select:focus {
+  border-color: #8A2BE2;
+  box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+}
+
+:global(.theme-neon-purple) .saveButton {
+  background: linear-gradient(90deg, #8A2BE2, #FF00FF);
+}
+
+:global(.theme-neon-purple) .saveButton:hover:not(:disabled) {
+  box-shadow: 0 5px 20px rgba(138, 43, 226, 0.4), 0 5px 20px rgba(255, 0, 255, 0.4);
+}
+
+:global(.theme-neon-green) .title {
+  background: linear-gradient(90deg, #00FF00, #39FF14);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+:global(.theme-neon-green) .titleUnderline {
+  background: linear-gradient(90deg, #00FF00, #39FF14);
+}
+
+:global(.theme-neon-green) .formSection h3 {
+  color: #00FF00;
+}
+
+:global(.theme-neon-green) .inputGroup input:focus,
+:global(.theme-neon-green) .inputGroup select:focus {
+  border-color: #00FF00;
+  box-shadow: 0 0 0 2px rgba(0, 255, 0, 0.2);
+}
+
+:global(.theme-neon-green) .saveButton {
+  background: linear-gradient(90deg, #00FF00, #39FF14);
+}
+
+:global(.theme-neon-green) .saveButton:hover:not(:disabled) {
+  box-shadow: 0 5px 20px rgba(0, 255, 0, 0.4), 0 5px 20px rgba(57, 255, 20, 0.4);
+}
+
+:global(.theme-neon-red) .title {
+  background: linear-gradient(90deg, #FF073A, #FF3131);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(255, 7, 58, 0.5);
+}
+
+:global(.theme-neon-red) .titleUnderline {
+  background: linear-gradient(90deg, #FF073A, #FF3131);
+}
+
+:global(.theme-neon-red) .formSection h3 {
+  color: #FF073A;
+}
+
+:global(.theme-neon-red) .inputGroup input:focus,
+:global(.theme-neon-red) .inputGroup select:focus {
+  border-color: #FF073A;
+  box-shadow: 0 0 0 2px rgba(255, 7, 58, 0.2);
+}
+
+:global(.theme-neon-red) .saveButton {
+  background: linear-gradient(90deg, #FF073A, #FF3131);
+}
+
+:global(.theme-neon-red) .saveButton:hover:not(:disabled) {
+  box-shadow: 0 5px 20px rgba(255, 7, 58, 0.4), 0 5px 20px rgba(255, 49, 49, 0.4);
+}
+
+:global(.theme-cyberpunk) .title {
+  background: linear-gradient(90deg, #FF0099, #F0F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(255, 0, 153, 0.5);
+}
+
+:global(.theme-cyberpunk) .titleUnderline {
+  background: linear-gradient(90deg, #FF0099, #F0F);
+}
+
+:global(.theme-cyberpunk) .formSection h3 {
+  color: #FF0099;
+}
+
+:global(.theme-cyberpunk) .inputGroup input:focus,
+:global(.theme-cyberpunk) .inputGroup select:focus {
+  border-color: #FF0099;
+  box-shadow: 0 0 0 2px rgba(255, 0, 153, 0.2);
+}
+
+:global(.theme-cyberpunk) .saveButton {
+  background: linear-gradient(90deg, #FF0099, #F0F);
+}
+
+:global(.theme-cyberpunk) .saveButton:hover:not(:disabled) {
+  box-shadow: 0 5px 20px rgba(255, 0, 153, 0.4), 0 5px 20px rgba(255, 0, 255, 0.4);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .mainContent {
+    margin-left: 0;
+    padding: 1rem;
+  }
+  
+  .sidebarCollapsed {
+    margin-left: 0;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .buttonGroup {
+    flex-direction: column;
+  }
+  
+  .testButton,
+  .saveButton,
+  .cancelButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .formContainer {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+}

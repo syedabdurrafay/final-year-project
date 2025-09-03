@@ -1,7 +1,8 @@
+# app/routes/auth.py
 from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks, Header
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from datetime import timedelta
+from datetime import timedelta, datetime
 from pydantic import BaseModel, EmailStr
 import re
 import secrets
@@ -11,7 +12,7 @@ from app.utils.security import get_password_hash, verify_password, create_access
 from app.models.user import User, UserCreate, UserResponse, Token
 from app.config import settings
 from app.utils.database import get_db
-from app.utils.email import send_welcome_email
+from app.utils.email import send_welcome_email, send_password_reset_email
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
@@ -54,15 +55,7 @@ class ResetPasswordRequest(BaseModel):
 # -------- Register --------
 @router.post("/register", response_model=UserResponse)
 def register(user: UserCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
-    # Pydantic already validates email via UserCreate; still double-check format gracefully
-    try:
-        EmailStr.validate(user.email)
-    except Exception:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid email format"
-        )
-
+    # Pydantic (UserCreate) already validates email & types.
     # Validate password strength
     validate_password_strength(user.password)
 
@@ -149,11 +142,18 @@ def verify_token(authorization: Optional[str] = Header(None, alias="Authorizatio
 def forgot_password(body: ForgotPasswordRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == body.email).first()
     if user:
-        # Generate reset token (simplified)
+        # Generate reset token and persist it in DB (simple implementation)
         reset_token = secrets.token_urlsafe(32)
-        # TODO: persist reset_token + expiry in DB and email a link
+        user.reset_token = reset_token
+        # Optionally add expiry: user.reset_token_expires = datetime.utcnow() + timedelta(hours=1)
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+        # Use background task to send email (in dev this prints)
+        background_tasks.add_task(send_password_reset_email, body.email, reset_token)
+
         print(f"Password reset token for {body.email}: {reset_token}")
-        # background_tasks.add_task(send_password_reset_email, body.email, reset_token)
 
     # Always return success to prevent email enumeration
     return {"message": "If the email exists, a password reset link has been sent"}
@@ -162,5 +162,15 @@ def forgot_password(body: ForgotPasswordRequest, background_tasks: BackgroundTas
 def reset_password(body: ResetPasswordRequest, db: Session = Depends(get_db)):
     # Validate password strength
     validate_password_strength(body.new_password)
-    # TODO: validate body.token against DB and update hashed_password
+
+    # Find user by reset token (simple implementation)
+    user = db.query(User).filter(User.reset_token == body.token).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid or expired reset token")
+
+    # Update password and clear token
+    user.hashed_password = get_password_hash(body.new_password)
+    user.reset_token = None
+    db.add(user)
+    db.commit()
     return {"message": "Password reset successfully"}

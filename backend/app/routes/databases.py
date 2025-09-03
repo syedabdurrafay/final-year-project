@@ -3,13 +3,13 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from app.models.database import DatabaseConnection, DatabaseConnectionCreate, DatabaseConnectionResponse
-from app.models.user import User  # <-- imported User model
+from app.models.user import User
 from app.utils.database import get_db
 from app.utils.security import decode_access_token
 from app.utils.database_connector import DatabaseConnector
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-router = APIRouter(prefix="/databases", tags=["Databases"])
+router = APIRouter(prefix="/api/databases", tags=["Databases"])
 security = HTTPBearer()
 
 def get_current_user(
@@ -42,6 +42,19 @@ def create_database_connection(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
+    # Check if connection with same name already exists for this user
+    existing_connection = db.query(DatabaseConnection).filter(
+        DatabaseConnection.user_id == current_user.id,
+        DatabaseConnection.name == db_connection.name,
+        DatabaseConnection.is_active == True
+    ).first()
+    
+    if existing_connection:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="A connection with this name already exists"
+        )
+    
     # Prepare connection object
     connection_obj = DatabaseConnection(
         **db_connection.dict(),
@@ -78,6 +91,27 @@ def get_database_connections(
     ).all()
     
     return connections
+
+@router.post("/test")
+def test_database_connection(
+    db_connection: DatabaseConnectionCreate,
+    current_user: User = Depends(get_current_user)
+):
+    # Create a temporary connection object for testing
+    connection_obj = DatabaseConnection(
+        **db_connection.dict(),
+        user_id=current_user.id
+    )
+    
+    # Test the connection
+    connector = DatabaseConnector(connection_obj)
+    success, message = connector.connect()
+    connector.close()
+    
+    return {
+        "success": success,
+        "message": message
+    }
 
 @router.get("/{db_id}/schema")
 def get_database_schema(

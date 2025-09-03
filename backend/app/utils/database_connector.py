@@ -143,27 +143,33 @@ class DatabaseConnector:
                 }
                 
             elif self.db_connection.db_type == "mysql":
-                # Get tables
-                cursor = self.connection.cursor()
-                cursor.execute("SHOW TABLES")
-                tables = [table[0] for table in cursor.fetchall()]
-                
-                # Get columns for each table
-                schema = {}
-                for table in tables:
-                    cursor.execute(f"DESCRIBE {table}")
-                    columns = cursor.fetchall()
-                    schema[table] = [
-                        {"column_name": col[0], "data_type": col[1], "is_nullable": col[2]}
-                        for col in columns
-                    ]
-                
-                cursor.close()
-                return {
-                    "success": True,
-                    "schema": schema,
-                    "message": "Schema retrieved successfully"
-                }
+                try:
+                    # Get tables
+                    cursor = self.connection.cursor()
+                    cursor.execute("SHOW TABLES")
+                    tables = [table[0] for table in cursor.fetchall()]
+                    
+                    # Get columns for each table
+                    schema = {}
+                    for table in tables:
+                        cursor.execute(f"DESCRIBE {table}")
+                        columns = cursor.fetchall()
+                        schema[table] = [
+                            {"column_name": col[0], "data_type": col[1], "is_nullable": col[2]}
+                            for col in columns
+                        ]
+                    
+                    cursor.close()
+                    return {
+                        "success": True,
+                        "schema": schema,
+                        "message": "Schema retrieved successfully"
+                    }
+                except Exception as e:
+                    return {
+                        "success": False,
+                        "message": f"Error retrieving schema: {str(e)}"
+                    }
                 
             elif self.db_connection.db_type == "mongodb":
                 collections = self.db.list_collection_names()

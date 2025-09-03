@@ -1,22 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SiMysql, SiMongodb, SiPostgresql } from 'react-icons/si';
 import { useTheme } from '../contexts/ThemeContext';
-import Sidebar from './Sidebar'; // Import the reusable sidebar
+import Sidebar from './Sidebar';
+import { databaseAPI } from '../services/api';
 import styles from './Databases.module.css';
 
 const Databases = () => {
-  const [selectedDb, setSelectedDb] = useState(null);
+  const [connections, setConnections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [connectingDb, setConnectingDb] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const navigate = useNavigate();
   const { theme } = useTheme();
 
-  const handleConnect = (dbName) => {
-    setSelectedDb(dbName);
-    setTimeout(() => {
-      navigate('/dashboard');
-    }, 1500);
+  useEffect(() => {
+    fetchConnections();
+  }, []);
+
+  const fetchConnections = async () => {
+    try {
+      const response = await databaseAPI.getConnections();
+      setConnections(response.data);
+    } catch (error) {
+      console.error('Error fetching connections:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleConnect = async (connectionId) => {
+    try {
+      setConnectingDb(connectionId);
+      
+      // Store the selected connection in localStorage for the dashboard to use
+      localStorage.setItem('selectedConnection', connectionId);
+      
+      // Fetch schema to verify connection is working
+      const schemaResponse = await databaseAPI.getSchema(connectionId);
+      
+      if (schemaResponse.data.success) {
+        // Show success notification
+        const notification = document.createElement('div');
+        notification.className = `${styles.futuristicNotification} ${styles[`notification-${theme}`]}`;
+        notification.innerHTML = `
+          <span class="${styles.notificationIcon}">✅</span>
+          <span>Database connected successfully!</span>
+          <div class="${styles.notificationProgress}"></div>
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          notification.remove();
+          navigate('/dashboard');
+        }, 1500);
+      } else {
+        throw new Error(schemaResponse.data.message);
+      }
+    } catch (error) {
+      console.error('Connection failed:', error);
+      
+      // Show error notification
+      const notification = document.createElement('div');
+      notification.className = `${styles.futuristicNotification} ${styles.notificationError}`;
+      notification.innerHTML = `
+        <span class="${styles.notificationIcon}">❌</span>
+        <span>Connection failed: ${error.message}</span>
+      `;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+      
+      setConnectingDb(null);
+    }
   };
 
   const getThemeStyle = () => {
@@ -61,6 +120,75 @@ const Databases = () => {
 
   const themeStyle = getThemeStyle();
 
+  const getDbIcon = (dbType) => {
+    switch(dbType) {
+      case 'postgresql': return <SiPostgresql className={styles.dbIcon} />;
+      case 'mysql': return <SiMysql className={styles.dbIcon} />;
+      case 'mongodb': return <SiMongodb className={styles.dbIcon} />;
+      default: return <SiPostgresql className={styles.dbIcon} />;
+    }
+  };
+
+  const getDbIconLarge = (dbType) => {
+    switch(dbType) {
+      case 'postgresql': return <SiPostgresql className={styles.dbIconLarge} />;
+      case 'mysql': return <SiMysql className={styles.dbIconLarge} />;
+      case 'mongodb': return <SiMongodb className={styles.dbIconLarge} />;
+      default: return <SiPostgresql className={styles.dbIconLarge} />;
+    }
+  };
+
+  const getCompatibilityText = (dbType) => {
+    switch(dbType) {
+      case 'postgresql': return 'Quantum Compatible';
+      case 'mysql': return 'Neural Optimized';
+      case 'mongodb': return 'Holographic Ready';
+      default: return 'Compatible';
+    }
+  };
+
+  // Default demo connections if no connections exist
+  const demoConnections = [
+    {
+      id: 'demo-1',
+      name: 'Coffee Shop Matrix',
+      db_type: 'postgresql',
+      version: 'PostgreSQL v14.7',
+      description: 'Contains sales and customer orders for the coffee shop chain across 47 dimensions.',
+      integrity: 98,
+      uptime: '24/7',
+      capacity: '47TB',
+      created_by: 'Admin',
+      last_accessed: '2.4 hours ago'
+    },
+    {
+      id: 'demo-2',
+      name: 'Retail Nexus',
+      db_type: 'mysql',
+      version: 'MySQL v8.0',
+      description: 'Manages product inventory, pricing, and store locations across quantum supply chain.',
+      integrity: 95,
+      uptime: '23.5/7',
+      capacity: '32TB',
+      created_by: 'System AI',
+      last_accessed: 'Yesterday'
+    },
+    {
+      id: 'demo-3',
+      name: 'Quantum Analytics',
+      db_type: 'mongodb',
+      version: 'MongoDB v6.0',
+      description: 'Real-time analytics and predictive modeling for multidimensional data streams.',
+      integrity: 99,
+      uptime: '24/7',
+      capacity: '64TB',
+      created_by: 'Quantum AI',
+      last_accessed: '5.2 hours ago'
+    }
+  ];
+
+  const displayConnections = connections.length > 0 ? connections : demoConnections;
+
   return (
     <div className={styles.databases}>
       {/* Advanced Animated Background Elements */}
@@ -75,7 +203,7 @@ const Databases = () => {
           onToggle={setIsSidebarExpanded} 
         />
 
-        {/* Main Content Area - Added left margin for when sidebar is expanded */}
+        {/* Main Content Area */}
         <main 
           className={`${styles.mainContent} ${!isSidebarExpanded ? styles.sidebarCollapsed : ''}`}
         >
@@ -93,219 +221,96 @@ const Databases = () => {
             </Link>
           </div>
 
-          <div className={styles.cardsContainer}>
-            {/* Database Card 1 */}
-            <div 
-              className={`${styles.card} ${hoveredCard === 1 ? styles.cardHovered : ''}`}
-              onMouseEnter={() => setHoveredCard(1)}
-              onMouseLeave={() => setHoveredCard(null)}
-            >
-              <div className={styles.cardGlow}></div>
-              <div className={styles.cardHeader}>
-                <h2>Coffee Shop Matrix</h2>
-                <div className={styles.dbType}>
-                  <SiPostgresql className={styles.dbIcon} />
-                  <span>PostgreSQL v14.7</span>
-                </div>
-              </div>
-              
-              <div className={styles.cardContent}>
-                <div className={styles.dataRow}>
-                  <span className={styles.dataLabel}>Created by:</span>
-                  <span className={styles.dataValue}>Admin</span>
-                </div>
-                <div className={styles.dataRow}>
-                  <span className={styles.dataLabel}>Last accessed:</span>
-                  <span className={styles.dataValue}>2.4 hours ago</span>
-                </div>
-                <div className={styles.dataDescription}>
-                  Contains sales and customer orders for the coffee shop chain across 47 dimensions.
-                </div>
-              </div>
-              
-              <div className={styles.cardStats}>
-                <div className={styles.stat}>
-                  <div className={styles.statValue}>98%</div>
-                  <div className={styles.statLabel}>Integrity</div>
-                </div>
-                <div className={styles.stat}>
-                  <div className={styles.statValue}>24/7</div>
-                  <div className={styles.statLabel}>Uptime</div>
-                </div>
-                <div className={styles.stat}>
-                  <div className={styles.statValue}>47TB</div>
-                  <div className={styles.statLabel}>Capacity</div>
-                </div>
-              </div>
-              
-              <button 
-                className={`${styles.connectButton} ${selectedDb === 'Coffee Shop' ? styles.connecting : ''}`}
-                onClick={() => handleConnect('Coffee Shop')}
-                disabled={selectedDb === 'Coffee Shop'}
-              >
-                <span className={styles.connectText}>
-                  {selectedDb === 'Coffee Shop' ? 'Neural Linking...' : 'Connect & Chat'}
-                </span>
-                <span className={styles.connectProgress}></span>
-              </button>
+          {loading ? (
+            <div className={styles.loadingContainer}>
+              <div className={styles.holographicSpinner}></div>
+              <p>Loading quantum connections...</p>
             </div>
+          ) : (
+            <>
+              <div className={styles.cardsContainer}>
+                {displayConnections.map((connection, index) => (
+                  <div 
+                    key={connection.id}
+                    className={`${styles.card} ${hoveredCard === index + 1 ? styles.cardHovered : ''}`}
+                    onMouseEnter={() => setHoveredCard(index + 1)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                  >
+                    <div className={styles.cardGlow}></div>
+                    <div className={styles.cardHeader}>
+                      <h2>{connection.name}</h2>
+                      <div className={styles.dbType}>
+                        {getDbIcon(connection.db_type)}
+                        <span>{connection.version || connection.db_type}</span>
+                      </div>
+                    </div>
+                    
+                    <div className={styles.cardContent}>
+                      <div className={styles.dataRow}>
+                        <span className={styles.dataLabel}>Created by:</span>
+                        <span className={styles.dataValue}>{connection.created_by || 'System'}</span>
+                      </div>
+                      <div className={styles.dataRow}>
+                        <span className={styles.dataLabel}>Last accessed:</span>
+                        <span className={styles.dataValue}>{connection.last_accessed || 'Just now'}</span>
+                      </div>
+                      <div className={styles.dataDescription}>
+                        {connection.description}
+                      </div>
+                    </div>
+                    
+                    <div className={styles.cardStats}>
+                      <div className={styles.stat}>
+                        <div className={styles.statValue}>{connection.integrity}%</div>
+                        <div className={styles.statLabel}>Integrity</div>
+                      </div>
+                      <div className={styles.stat}>
+                        <div className={styles.statValue}>{connection.uptime}</div>
+                        <div className={styles.statLabel}>Uptime</div>
+                      </div>
+                      <div className={styles.stat}>
+                        <div className={styles.statValue}>{connection.capacity}</div>
+                        <div className={styles.statLabel}>Capacity</div>
+                      </div>
+                    </div>
+                    
+                    <button 
+                      className={`${styles.connectButton} ${connectingDb === connection.id ? styles.connecting : ''}`}
+                      onClick={() => handleConnect(connection.id)}
+                      disabled={connectingDb === connection.id}
+                    >
+                      <span className={styles.connectText}>
+                        {connectingDb === connection.id ? 'Neural Linking...' : 'Connect & Chat'}
+                      </span>
+                      <span className={styles.connectProgress}></span>
+                    </button>
+                  </div>
+                ))}
+              </div>
 
-            {/* Database Card 2 */}
-            <div 
-              className={`${styles.card} ${hoveredCard === 2 ? styles.cardHovered : ''}`}
-              onMouseEnter={() => setHoveredCard(2)}
-              onMouseLeave={() => setHoveredCard(null)}
-            >
-              <div className={styles.cardGlow}></div>
-              <div className={styles.cardHeader}>
-                <h2>Retail Nexus</h2>
-                <div className={styles.dbType}>
-                  <SiMysql className={styles.dbIcon} />
-                  <span>MySQL v8.0</span>
+              {/* Database Ecosystem Section */}
+              <div className={styles.ecosystem}>
+                <h3 className={styles.ecosystemTitle}>SUPPORTED QUANTUM DATABASES</h3>
+                <p className={styles.ecosystemSubtitle}>Fully compatible with multidimensional data structures</p>
+                
+                <div className={styles.iconsContainer}>
+                  {['postgresql', 'mysql', 'mongodb'].map((dbType) => (
+                    <div key={dbType} className={styles.iconItem}>
+                      <div className={styles.iconWrapper}>
+                        {getDbIconLarge(dbType)}
+                        <div className={styles.iconHalo}></div>
+                        <div className={styles.iconParticles}></div>
+                      </div>
+                      <p>{dbType.charAt(0).toUpperCase() + dbType.slice(1)}</p>
+                      <div className={styles.compatibility}>
+                        <span className={styles.compatibilityText}>{getCompatibilityText(dbType)}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              
-              <div className={styles.cardContent}>
-                <div className={styles.dataRow}>
-                  <span className={styles.dataLabel}>Created by:</span>
-                  <span className={styles.dataValue}>System AI</span>
-                </div>
-                <div className={styles.dataRow}>
-                  <span className={styles.dataLabel}>Last accessed:</span>
-                  <span className={styles.dataValue}>Yesterday</span>
-                </div>
-                <div className={styles.dataDescription}>
-                  Manages product inventory, pricing, and store locations across quantum supply chain.
-                </div>
-              </div>
-              
-              <div className={styles.cardStats}>
-                <div className={styles.stat}>
-                  <div className={styles.statValue}>95%</div>
-                  <div className={styles.statLabel}>Integrity</div>
-                </div>
-                <div className={styles.stat}>
-                  <div className={styles.statValue}>23.5/7</div>
-                  <div className={styles.statLabel}>Uptime</div>
-                </div>
-                <div className={styles.stat}>
-                  <div className={styles.statValue}>32TB</div>
-                  <div className={styles.statLabel}>Capacity</div>
-                </div>
-              </div>
-              
-              <button 
-                className={`${styles.connectButton} ${selectedDb === 'Retail Store' ? styles.connecting : ''}`}
-                onClick={() => handleConnect('Retail Store')}
-                disabled={selectedDb === 'Retail Store'}
-              >
-                <span className={styles.connectText}>
-                  {selectedDb === 'Retail Store' ? 'Neural Linking...' : 'Connect & Chat'}
-                </span>
-                <span className={styles.connectProgress}></span>
-              </button>
-            </div>
-            
-            {/* Database Card 3 - New */}
-            <div 
-              className={`${styles.card} ${hoveredCard === 3 ? styles.cardHovered : ''}`}
-              onMouseEnter={() => setHoveredCard(3)}
-              onMouseLeave={() => setHoveredCard(null)}
-            >
-              <div className={styles.cardGlow}></div>
-              <div className={styles.cardHeader}>
-                <h2>Quantum Analytics</h2>
-                <div className={styles.dbType}>
-                  <SiMongodb className={styles.dbIcon} />
-                  <span>MongoDB v6.0</span>
-                </div>
-              </div>
-              
-              <div className={styles.cardContent}>
-                <div className={styles.dataRow}>
-                  <span className={styles.dataLabel}>Created by:</span>
-                  <span className={styles.dataValue}>Quantum AI</span>
-                </div>
-                <div className={styles.dataRow}>
-                  <span className={styles.dataLabel}>Last accessed:</span>
-                  <span className={styles.dataValue}>5.2 hours ago</span>
-                </div>
-                <div className={styles.dataDescription}>
-                  Real-time analytics and predictive modeling for multidimensional data streams.
-                </div>
-              </div>
-              
-              <div className={styles.cardStats}>
-                <div className={styles.stat}>
-                  <div className={styles.statValue}>99%</div>
-                  <div className={styles.statLabel}>Integrity</div>
-                </div>
-                <div className={styles.stat}>
-                  <div className={styles.statValue}>24/7</div>
-                  <div className={styles.statLabel}>Uptime</div>
-                </div>
-                <div className={styles.stat}>
-                  <div className={styles.statValue}>64TB</div>
-                  <div className={styles.statLabel}>Capacity</div>
-                </div>
-              </div>
-              
-              <button 
-                className={`${styles.connectButton} ${selectedDb === 'Quantum Analytics' ? styles.connecting : ''}`}
-                onClick={() => handleConnect('Quantum Analytics')}
-                disabled={selectedDb === 'Quantum Analytics'}
-              >
-                <span className={styles.connectText}>
-                  {selectedDb === 'Quantum Analytics' ? 'Neural Linking...' : 'Connect & Chat'}
-                </span>
-                <span className={styles.connectProgress}></span>
-              </button>
-            </div>
-          </div>
-
-          {/* Database Ecosystem Section */}
-          <div className={styles.ecosystem}>
-            <h3 className={styles.ecosystemTitle}>SUPPORTED QUANTUM DATABASES</h3>
-            <p className={styles.ecosystemSubtitle}>Fully compatible with multidimensional data structures</p>
-            
-            <div className={styles.iconsContainer}>
-              <div className={styles.iconItem}>
-                <div className={styles.iconWrapper}>
-                  <SiPostgresql className={styles.dbIconLarge} />
-                  <div className={styles.iconHalo}></div>
-                  <div className={styles.iconParticles}></div>
-                </div>
-                <p>PostgreSQL</p>
-                <div className={styles.compatibility}>
-                  <span className={styles.compatibilityText}>Quantum Compatible</span>
-                </div>
-              </div>
-              
-              <div className={styles.iconItem}>
-                <div className={styles.iconWrapper}>
-                  <SiMysql className={styles.dbIconLarge} />
-                  <div className={styles.iconHalo}></div>
-                  <div className={styles.iconParticles}></div>
-                </div>
-                <p>MySQL</p>
-                <div className={styles.compatibility}>
-                  <span className={styles.compatibilityText}>Neural Optimized</span>
-                </div>
-              </div>
-              
-              <div className={styles.iconItem}>
-                <div className={styles.iconWrapper}>
-                  <SiMongodb className={styles.dbIconLarge} />
-                  <div className={styles.iconHalo}></div>
-                  <div className={styles.iconParticles}></div>
-                </div>
-                <p>MongoDB</p>
-                <div className={styles.compatibility}>
-                  <span className={styles.compatibilityText}>Holographic Ready</span>
-                </div>
-              </div>
-            </div>
-          </div>
+            </>
+          )}
         </main>
       </div>
     </div>

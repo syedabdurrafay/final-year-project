@@ -1,3 +1,4 @@
+// src/pages/Signup.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -67,7 +68,10 @@ const Signup = () => {
       password: userData.password,
     });
 
-    if (result.success) navigate('/database');
+    if (result.success) {
+      alert('🎉 Account created successfully! Redirecting...');
+      navigate('/databases'); // ✅ FIXED (plural)
+    }
 
     setIsLoading(false);
   };
@@ -209,17 +213,28 @@ const Signup = () => {
             </div>
           </div>
 
-          <button type="submit" className="ci-neural-signup-button" disabled={!isAgreed || isLoading || passwordErrors.length > 0}>
-            {isLoading ? <div className="ci-loading-spinner"></div> : (<>
-              <span className="ci-button-text">Create Neural Account</span>
-              <div className="ci-button-shine"></div>
-              <div className="ci-button-hover-effect"></div>
-            </>)}
+          <button
+            type="submit"
+            className="ci-neural-signup-button"
+            disabled={!isAgreed || isLoading || passwordErrors.length > 0}
+          >
+            {isLoading ? (
+              <div className="ci-loading-spinner"></div>
+            ) : (
+              <>
+                <span className="ci-button-text">Create Neural Account</span>
+                <div className="ci-button-shine"></div>
+                <div className="ci-button-hover-effect"></div>
+              </>
+            )}
           </button>
         </form>
 
         <p className="ci-login-prompt">
-          Already have an account? <Link to="/login" className="ci-holographic-link">Neural Login</Link>
+          Already have an account?{' '}
+          <Link to="/login" className="ci-holographic-link">
+            Neural Login
+          </Link>
         </p>
       </div>
 
