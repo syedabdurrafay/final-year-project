@@ -1,0 +1,337 @@
+/* components/InsightsPanel.module.css */
+.insightsPanel {
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  backdrop-filter: blur(10px);
+  border: 1px solid;
+  animation: fadeIn 0.5s ease-in;
+  transition: all 0.3s ease;
+}
+
+/* Light Theme */
+.insightsPanelLight {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: #334155;
+}
+
+/* Dark Theme */
+.insightsPanelDark {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: #334155;
+  box-shadow: 0 0 15px rgba(0, 219, 222, 0.3);
+  color: #e2e8f0;
+}
+
+/* Text colors */
+.lightText {
+  color: #334155;
+}
+
+.darkText {
+  color: #e2e8f0;
+}
+
+.lightTextSecondary {
+  color: #64748b;
+}
+
+.darkTextSecondary {
+  color: #94a3b8;
+}
+
+.insightsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid;
+  padding-bottom: 10px;
+}
+
+.insightsPanelLight .insightsHeader {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+.insightsPanelDark .insightsHeader {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.insightsHeader h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.insightsPanelLight .insightsHeader h3 {
+  color: #1e293b;
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.insightsPanelDark .insightsHeader h3 {
+  background: linear-gradient(90deg, #fff, #ccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.newQueryButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.newQueryButtonLight {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #3b82f6;
+}
+
+.newQueryButton:hover {
+  transform: translateY(-2px);
+}
+
+.newQueryButtonLight:hover {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.insightsPanelDark .newQueryButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.insightsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.insightsText {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.queryPreview, .insightsResult, .sqlPreview {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.queryLabel, .insightsLabel, .sqlLabel {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.queryLabelLight, .insightsLabelLight, .sqlLabelLight {
+  color: #64748b;
+}
+
+.insightsPanelDark .queryLabel,
+.insightsPanelDark .insightsLabel,
+.insightsPanelDark .sqlLabel {
+  color: #94a3b8;
+}
+
+.queryText {
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border-left: 3px solid;
+}
+
+.queryTextLight {
+  color: #1e293b;
+  background: rgba(59, 130, 246, 0.05);
+  border-left-color: #3b82f6;
+}
+
+.insightsPanelDark .queryText {
+  color: #e2e8f0;
+  border-left-color: #00DBDE;
+}
+
+.insightsParagraph {
+  margin: 0;
+  line-height: 1.6;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.insightsParagraphLight {
+  color: #334155;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.insightsPanelDark .insightsParagraph {
+  color: #e2e8f0;
+}
+
+.sqlCode {
+  padding: 12px;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  overflow-x: auto;
+  border: 1px solid;
+}
+
+.sqlCodeLight {
+  background: rgba(0, 0, 0, 0.05);
+  color: #d63384;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.insightsPanelDark .sqlCode {
+  background: rgba(0, 0, 0, 0.3);
+  color: #ffa07a;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dataTitle {
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+}
+
+.dataTitleLight {
+  color: #1e293b;
+}
+
+.insightsPanelDark .dataTitle {
+  color: #e2e8f0;
+}
+
+.dataTableContainer {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid;
+}
+
+.dataTableContainerLight {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.insightsPanelDark .dataTableContainer {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dataTableLight {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.insightsPanelDark .dataTable {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.tableHeader {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid;
+}
+
+.tableHeaderLight {
+  background: rgba(59, 130, 246, 0.1);
+  color: #1e293b;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+.insightsPanelDark .tableHeader {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.tableCell {
+  padding: 10px 12px;
+  border-bottom: 1px solid;
+}
+
+.tableCellLight {
+  color: #666;
+  border-bottom-color: rgba(0, 0, 0, 0.05);
+}
+
+.insightsPanelDark .tableCell {
+  color: #ccc;
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.tableRow:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dataTableLight .tableRow:hover {
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.moreData {
+  padding: 10px;
+  text-align: center;
+  font-style: italic;
+}
+
+.moreDataLight {
+  color: #666;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.insightsPanelDark .moreData {
+  color: #888;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.copyButtonLight {
+  background: linear-gradient(90deg, #10b981, #059669);
+  border: none;
+}
+
+.copyButtonDark {
+  background: linear-gradient(90deg, #5cb85c, #4caf50);
+  border: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .insightsHeader {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .dataTable {
+    font-size: 0.9rem;
+  }
+  
+  .tableHeader,
+  .tableCell {
+    padding: 8px 10px;
+  }
+}

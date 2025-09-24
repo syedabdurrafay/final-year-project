@@ -1,0 +1,267 @@
+/* src/pages/Signup.css - Minimal Black & White Theme */
+.ci-signup-container * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.ci-signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f8f9fa;
+  color: #212529;
+}
+
+.ci-signup-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  border: 1px solid #e9ecef;
+}
+
+.ci-signup-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #212529;
+}
+
+.ci-signup-subtitle {
+  font-size: 14px;
+  margin-bottom: 30px;
+  color: #6c757d;
+  font-weight: 400;
+}
+
+.ci-input-container {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.ci-input-label {
+  display: block;
+  position: relative;
+}
+
+.ci-label-text {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+}
+
+.ci-signup-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  outline: none;
+  background: #ffffff;
+  color: #212529;
+}
+
+.ci-signup-input:focus {
+  border-color: #212529;
+  box-shadow: 0 0 0 3px rgba(33, 37, 41, 0.1);
+}
+
+.ci-signup-input::placeholder {
+  color: #adb5bd;
+}
+
+.ci-input-label.ci-focused .ci-signup-input {
+  border-color: #212529;
+}
+
+.ci-password-requirements {
+  margin-top: 10px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.ci-password-requirements p {
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #495057;
+}
+
+.ci-password-requirements ul {
+  list-style: none;
+  padding: 0;
+}
+
+.ci-password-requirements li {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.ci-password-requirements li.valid {
+  color: #198754;
+}
+
+.ci-password-requirements li.invalid {
+  color: #dc3545;
+}
+
+.ci-signup-options {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.ci-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.ci-actual-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ci-checkbox-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #495057;
+  transition: all 0.2s ease;
+}
+
+.ci-checkbox-label::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  margin-right: 10px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.ci-actual-checkbox:checked + .ci-checkbox-label::before {
+  background: #212529;
+  border-color: #212529;
+}
+
+.ci-actual-checkbox:checked + .ci-checkbox-label::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.ci-link {
+  color: #212529;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.ci-link:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+.ci-signup-button {
+  position: relative;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  background: #212529;
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.ci-signup-button:hover:not(:disabled) {
+  background: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ci-signup-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ci-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  animation: ci-spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes ci-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.ci-error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.ci-error-message.small {
+  font-size: 13px;
+  padding: 8px 12px;
+  margin-top: 8px;
+}
+
+.ci-error-icon {
+  margin-right: 8px;
+}
+
+.ci-login-prompt {
+  font-size: 14px;
+  color: #6c757d;
+  margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .ci-signup-card {
+    padding: 30px 20px;
+    margin: 0 15px;
+  }
+  
+  .ci-signup-title {
+    font-size: 22px;
+  }
+}

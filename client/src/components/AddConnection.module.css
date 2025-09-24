@@ -1,0 +1,466 @@
+/* Modern Minimal Theme System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.addConnection {
+  min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: all 0.3s ease;
+}
+
+/* Light Theme */
+.addConnection.theme-light {
+  background-color: #f8fafc;
+  color: #334155;
+}
+
+/* Dark Theme */
+.addConnection.theme-dark {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Main Content Area */
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  transition: margin-left 0.3s ease;
+  margin-left: 280px;
+}
+
+.mainContent.sidebarCollapsed {
+  margin-left: 80px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.theme-light .theme-toggle {
+  background-color: #e2e8f0;
+  border: 1px solid #cbd5e1;
+}
+
+.theme-dark .theme-toggle {
+  background-color: #1e293b;
+  border: 1px solid #475569;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+.titleContainer {
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  letter-spacing: -0.025em;
+}
+
+.theme-light .title {
+  color: #1e293b;
+}
+
+.theme-dark .title {
+  color: #f1f5f9;
+}
+
+.titleSub {
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.formContainer {
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.theme-light .formContainer {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+}
+
+.theme-dark .formContainer {
+  background-color: #1e293b;
+  border: 1px solid #475569; /* Enhanced border visibility */
+}
+
+.formSection {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+}
+
+.theme-light .formSection {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.theme-dark .formSection {
+  border-bottom: 1px solid #475569; /* Enhanced border visibility */
+}
+
+.formSection:last-child {
+  border-bottom: none;
+}
+
+.formSection h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.theme-light .formSection h3 {
+  color: #3b82f6;
+}
+
+.theme-dark .formSection h3 {
+  color: #818cf8;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputGroup label {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.theme-light .inputGroup label {
+  color: #64748b;
+}
+
+.theme-dark .inputGroup label {
+  color: #94a3b8;
+}
+
+.inputGroup input,
+.inputGroup select {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  border: 1px solid; /* Added consistent border property */
+}
+
+.theme-light .inputGroup input,
+.theme-light .inputGroup select {
+  border-color: #cbd5e1;
+  background: white;
+  color: #334155;
+}
+
+.theme-dark .inputGroup input,
+.theme-dark .inputGroup select {
+  border-color: #475569; /* Enhanced border visibility */
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus {
+  outline: none;
+}
+
+.theme-light .inputGroup input:focus,
+.theme-light .inputGroup select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.theme-dark .inputGroup input:focus,
+.theme-dark .inputGroup select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.inputGroup input::placeholder {
+  color: #94a3b8;
+}
+
+/* File input specific styles */
+.inputGroup input[type="file"] {
+  padding: 0.5rem;
+}
+
+.theme-light .inputGroup input[type="file"] {
+  background: #f8fafc;
+}
+
+.theme-dark .inputGroup input[type="file"] {
+  background: #1e293b;
+}
+
+.filePath {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  border: 1px solid; /* Added border for consistency */
+}
+
+.theme-light .filePath {
+  background-color: #f1f5f9;
+  color: #475569;
+  border-color: #e2e8f0;
+}
+
+.theme-dark .filePath {
+  background-color: #334155;
+  color: #cbd5e1;
+  border-color: #475569; /* Enhanced border visibility */
+}
+
+/* Test Result Styles */
+.testResult {
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+  border: 1px solid; /* Added consistent border property */
+}
+
+.testResult.success {
+  border: 1px solid;
+}
+
+.theme-light .testResult.success {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #15803d;
+}
+
+.theme-dark .testResult.success {
+  background-color: #052e16;
+  border-color: #166534;
+  color: #4ade80;
+}
+
+.testResult.error {
+  border: 1px solid;
+}
+
+.theme-light .testResult.error {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+.theme-dark .testResult.error {
+  background-color: #450a0a;
+  border-color: #991b1b;
+  color: #f87171;
+}
+
+.testIcon {
+  font-size: 1.2rem;
+}
+
+.schemaInfo {
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  border: 1px solid; /* Added border for consistency */
+}
+
+.theme-light .schemaInfo {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border-color: #bae6fd;
+}
+
+.theme-dark .schemaInfo {
+  background-color: #0c4a6e;
+  color: #7dd3fc;
+  border-color: #0369a1; /* Enhanced border visibility */
+}
+
+/* Button Styles */
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.testButton,
+.saveButton,
+.cancelButton {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  border: 1px solid transparent; /* Added for consistency */
+}
+
+.testButton {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #2563eb; /* Added border for consistency */
+}
+
+.testButton:hover:not(:disabled) {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.saveButton {
+  background-color: #10b981;
+  color: white;
+  border-color: #059669; /* Added border for consistency */
+}
+
+.saveButton:hover:not(:disabled) {
+  background-color: #059669;
+  transform: translateY(-1px);
+}
+
+.cancelButton {
+  background-color: transparent;
+}
+
+.theme-light .cancelButton {
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+.theme-dark .cancelButton {
+  color: #94a3b8;
+  border: 1px solid #475569;
+}
+
+.cancelButton:hover {
+  transform: translateY(-1px);
+}
+
+.theme-light .cancelButton:hover {
+  background-color: #f8fafc;
+}
+
+.theme-dark .cancelButton:hover {
+  background-color: #1e293b;
+}
+
+.testButton:disabled,
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .mainContent {
+    margin-left: 0 !important;
+  }
+}
+
+@media (max-width: 968px) {
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .buttonGroup {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 1.5rem;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .headerActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .formContainer {
+    padding: 1.5rem;
+  }
+  
+  .buttonGroup {
+    flex-direction: column;
+  }
+  
+  .testButton,
+  .saveButton,
+  .cancelButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .formContainer {
+    padding: 1.25rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .formSection h3 {
+    font-size: 1.1rem;
+  }
+}

@@ -1,0 +1,133 @@
+/* Global CSS Variables for Theming */
+:root {
+  /* Light theme (default) */
+  --primary: #4f46e5;
+  --secondary: #6366f1;
+  --background: #f8fafc;
+  --text: #1e293b;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+}
+
+/* Dark/Neon themes */
+.theme-neon-blue {
+  --primary: #1E90FF;
+  --secondary: #00BFFF;
+  --background: #0a0a20;
+  --text: #ffffff;
+  --card: rgba(20, 25, 45, 0.7);
+  --border: rgba(100, 120, 255, 0.2);
+  --success: #00ff00;
+  --error: #ff073a;
+  --warning: #ffd700;
+  --info: #00ffff;
+}
+
+.theme-neon-purple {
+  --primary: #8A2BE2;
+  --secondary: #9370DB;
+  --background: #1a0a2a;
+  --text: #ffffff;
+  --card: rgba(30, 15, 45, 0.7);
+  --border: rgba(138, 43, 226, 0.2);
+  --success: #00ff00;
+  --error: #ff073a;
+  --warning: #ffd700;
+  --info: #00ffff;
+}
+
+.theme-neon-green {
+  --primary: #00FF00;
+  --secondary: #39FF14;
+  --background: #0a200a;
+  --text: #ffffff;
+  --card: rgba(20, 45, 20, 0.7);
+  --border: rgba(0, 255, 0, 0.2);
+  --success: #00ff00;
+  --error: #ff073a;
+  --warning: #ffd700;
+  --info: #00ffff;
+}
+
+.theme-neon-red {
+  --primary: #FF073A;
+  --secondary: #FF3131;
+  --background: #200a0a;
+  --text: #ffffff;
+  --card: rgba(45, 20, 20, 0.7);
+  --border: rgba(255, 7, 58, 0.2);
+  --success: #00ff00;
+  --error: #ff073a;
+  --warning: #ffd700;
+  --info: #00ffff;
+}
+
+.theme-cyberpunk {
+  --primary: #FF0099;
+  --secondary: #F0F;
+  --background: #150a20;
+  --text: #ffffff;
+  --card: rgba(30, 15, 45, 0.7);
+  --border: rgba(255, 0, 153, 0.2);
+  --success: #00ff00;
+  --error: #ff073a;
+  --warning: #ffd700;
+  --info: #00ffff;
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  line-height: 1.6;
+}
+
+/* Common component styles using CSS variables */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--secondary);
+}
+
+.input {
+  background-color: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.5rem;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}

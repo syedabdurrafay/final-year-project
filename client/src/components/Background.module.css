@@ -1,0 +1,139 @@
+.background {
+  min-height: 100vh;
+  width: 100vw;
+  color: white;
+  transition: background 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grid overlay effect */
+.gridOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 1;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}
+
+/* Particle animation */
+.particlesContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: var(--particle-size);
+  height: var(--particle-size);
+  background-color: var(--particle-color);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--particle-color), 0 0 20px var(--particle-color);
+  opacity: 0;
+  animation: floatParticle var(--particle-duration) linear infinite;
+  animation-delay: var(--particle-delay);
+  left: var(--particle-left);
+  top: var(--particle-top);
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(calc(-50vw + var(--particle-left)));
+    opacity: 0;
+  }
+}
+
+/* Glowing orbs */
+.orb {
+  position: absolute;
+  width: var(--orb-size, 200px);
+  height: var(--orb-size, 200px);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--orb-color), transparent 70%);
+  filter: blur(40px);
+  opacity: 0.15;
+  top: var(--orb-top, 20%);
+  left: var(--orb-left, 10%);
+  animation: pulseOrb 8s ease-in-out infinite;
+  animation-delay: var(--orb-delay, 0s);
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes pulseOrb {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.2;
+  }
+}
+
+/* Scanline effect */
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent 0%, var(--scan-color, rgba(0, 255, 255, 0.6)) 50%, transparent 100%);
+  box-shadow: 0 0 10px var(--scan-color, rgba(0, 255, 255, 0.6));
+  animation: scan 3s linear infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gridOverlay {
+    background-size: 20px 20px;
+  }
+  
+  .orb {
+    width: 100px;
+    height: 100px;
+    filter: blur(20px);
+  }
+}

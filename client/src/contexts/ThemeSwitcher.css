@@ -1,0 +1,94 @@
+.theme-switcher {
+  position: relative;
+}
+
+.theme-switcher-button {
+  background: var(--switcher-bg, rgba(255, 255, 255, 0.1));
+  border: var(--switcher-border, 1px solid rgba(255, 255, 255, 0.2));
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--switcher-color, white);
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+
+.theme-switcher-button:hover {
+  background: var(--switcher-hover-bg, rgba(255, 255, 255, 0.2));
+  transform: scale(1.05);
+}
+
+.theme-switcher-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: var(--dropdown-bg, rgba(15, 15, 20, 0.95));
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 180px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  border: var(--dropdown-border, 1px solid rgba(255, 255, 255, 0.1));
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: all 0.2s ease;
+  color: var(--dropdown-text, white);
+}
+
+.theme-option.active {
+  background-color: var(--option-active-bg, rgba(255, 255, 255, 0.1));
+}
+
+.theme-option:hover {
+  background-color: var(--option-hover-bg, rgba(255, 255, 255, 0.1));
+}
+
+.theme-icon {
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+.theme-color-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.theme-label {
+  font-size: 0.9rem;
+}
+
+/* Light theme variables */
+.theme-light .theme-switcher-button {
+  --switcher-bg: rgba(79, 70, 229, 0.1);
+  --switcher-border: 1px solid rgba(79, 70, 229, 0.2);
+  --switcher-color: #4f46e5;
+  --switcher-hover-bg: rgba(79, 70, 229, 0.2);
+}
+
+.theme-light .theme-switcher-dropdown {
+  --dropdown-bg: rgba(255, 255, 255, 0.95);
+  --dropdown-border: 1px solid rgba(79, 70, 229, 0.1);
+  --dropdown-text: #1e293b;
+}
+
+.theme-light .theme-option.active {
+  --option-active-bg: rgba(79, 70, 229, 0.1);
+}
+
+.theme-light .theme-option:hover {
+  --option-hover-bg: rgba(79, 70, 229, 0.1);
+}
